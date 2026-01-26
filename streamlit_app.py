@@ -20,9 +20,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ------------------- CONFIG -------------------
-PDF_FOLDER = "pdf_files"
 INDEX_FILE = "pdf_index_enhanced.pkl"
 
+# Secrets are checked in main(), so we can safely access them here.
 HF_TOKEN = st.secrets["hf_token"]
 DEEPSEEK_API_URL = "https://router.huggingface.co/v1/chat/completions"
 DEEPSEEK_MODEL_NAME = "deepseek-ai/DeepSeek-V3.1:novita"
@@ -814,6 +814,16 @@ def main():
         page_icon="🔄",
         initial_sidebar_state="expanded"
     )
+
+    # Check for secrets first to avoid crashing with a KeyError
+    required_secrets = ["hf_token", "client_id", "client_secret", "redirect_uri"]
+    missing_secrets = [secret for secret in required_secrets if not st.secrets.get(secret)]
+
+    if missing_secrets:
+        st.error(f"🚨 Missing Secrets: {', '.join(missing_secrets)}")
+        st.warning("Please go to your app settings on Streamlit Cloud and add the missing secrets.")
+        st.info("You can copy the template from the `secrets.toml` file in the repository and fill in your values.")
+        st.stop()
     
     # 🔐 AUTHENTICATION CHECK
     if not check_google_auth():
@@ -2311,7 +2321,7 @@ def get_rag_pipeline(selected_model: str):
         "deepseek_model": DEEPSEEK_MODEL_NAME,
     }
     return RAGPipeline(
-        pdf_folder=PDF_FOLDER,
+        pdf_folder="",  # Not needed for runtime, only for building the index
         index_file=INDEX_FILE,
         model_params=params,
     )
