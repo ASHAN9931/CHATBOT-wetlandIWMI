@@ -30,4 +30,4 @@ python-dateutil
 PyYAML
 tiktoken
 
--e ./Chat_input_widget-master
+./Chat_input_widget-master

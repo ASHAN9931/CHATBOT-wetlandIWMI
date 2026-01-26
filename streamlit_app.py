@@ -20,7 +20,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ------------------- CONFIG -------------------
-PDF_FOLDER = "C://iwmi-remote-work//CBE-Chatbot//New folder//cbe//agri and waste water"
+PDF_FOLDER = "pdf_files"
 INDEX_FILE = "pdf_index_enhanced.pkl"
 
 AZURE_OPENAI_KEY = st.secrets["azure_api_key"]
@@ -2014,7 +2014,7 @@ def save_chat_history(email: str, messages: list, total_queries: int, model: str
         
         return True
     except Exception as e:
-        st.error(f"❌ Failed to save chat history: {e}")
+        logger.warning(f"Failed to save chat history: {e}")
         return False
 
 def load_chat_history(email: str) -> dict:
@@ -2029,7 +2029,7 @@ def load_chat_history(email: str) -> dict:
         
         return chat_data
     except Exception as e:
-        print(f"Error loading chat history: {e}")
+        logger.warning(f"Failed to load chat history: {e}")
         return None
 
 def delete_chat_history(email: str) -> bool:
@@ -2041,7 +2041,7 @@ def delete_chat_history(email: str) -> bool:
             logger.info(f"[DEBUG-SAVED-DELETE] Deleted saved chat: {file_path}")
         return True
     except Exception as e:
-        logger.error(f"Error deleting chat history: {e}")
+        logger.warning(f"Failed to delete chat history: {e}")
         return False
 
 def _archive_filename_for(email: str, timestamp: str, title: str | None = None) -> str:
@@ -2089,7 +2089,7 @@ def archive_current_history(email: str) -> str | None:
             json.dump(data, f, indent=2, ensure_ascii=False)
         return archive_path
     except Exception as e:
-        print(f"Error archiving chat history: {e}")
+        logger.warning(f"Failed to archive chat history: {e}")
         return None
 
 def archive_messages(email: str, messages: list, total_queries: int = 0, model: str = None, title: str | None = None) -> str | None:
@@ -2131,7 +2131,7 @@ def archive_messages(email: str, messages: list, total_queries: int = 0, model: 
             json.dump(chat_data, f, indent=2, ensure_ascii=False)
         return archive_path
     except Exception as e:
-        print(f"Error archiving messages: {e}")
+        logger.warning(f"Failed to archive messages: {e}")
         return None
 
 def rename_saved_chat(email: str, new_title: str) -> bool:
@@ -2146,7 +2146,7 @@ def rename_saved_chat(email: str, new_title: str) -> bool:
             json.dump(data, f, indent=2, ensure_ascii=False)
         return True
     except Exception as e:
-        print(f"Error renaming saved chat: {e}")
+        logger.warning(f"Failed to rename saved chat: {e}")
         return False
 
 def list_archived_histories(email: str) -> list:
