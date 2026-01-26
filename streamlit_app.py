@@ -23,10 +23,6 @@ logger = logging.getLogger(__name__)
 PDF_FOLDER = "pdf_files"
 INDEX_FILE = "pdf_index_enhanced.pkl"
 
-AZURE_OPENAI_KEY = st.secrets["azure_api_key"]
-AZURE_OPENAI_ENDPOINT = "https://iwmi-chat-demo.openai.azure.com/"
-AZURE_OPENAI_DEPLOYMENT = "gpt-4o-mini"
-
 HF_TOKEN = st.secrets["hf_token"]
 DEEPSEEK_API_URL = "https://router.huggingface.co/v1/chat/completions"
 DEEPSEEK_MODEL_NAME = "deepseek-ai/DeepSeek-V3.1:novita"
@@ -988,24 +984,7 @@ def main():
         
         # Model Selection - without section box
         st.markdown('<div class="section-content">', unsafe_allow_html=True)
-        selected_model = st.selectbox(
-            "Select AI Engine",
-            ["DeepSeek", "GPT-4o-mini"],
-            index=0 if st.session_state.model == "DeepSeek" else 1,
-            help="Choose the AI model for processing your queries",
-            label_visibility="collapsed"
-        )
-        
-        if selected_model != st.session_state.model:
-            st.toast(f"✅ Switched to {selected_model}", icon="🔄")
-            st.session_state.model = selected_model
-            st.session_state.messages = []
-            st.session_state.total_queries = 0
-            st.session_state.rag_loaded = False
-            st.session_state.is_switching = True
-            # Save empty chat
-            save_chat_history(user_email, [], 0, selected_model)
-            st.rerun()
+        st.session_state.model = "DeepSeek"
         
         st.markdown('</div>', unsafe_allow_html=True)
         
@@ -1655,21 +1634,13 @@ def main():
         # Run agent loop
         with st.spinner("🤖 CircularIQ is thinking..."):
             try:
-                # Determine LLM parameters
-                if st.session_state.model == "GPT-4o-mini":
-                    llm_type = "azure"
-                    model_deployment = AZURE_OPENAI_DEPLOYMENT
-                else:
-                    llm_type = "deepseek"
-                    model_deployment = None
-                
                 answer, retrieved_docs, loop_count = run_agent_loop(
                     user_question=prompt,
                     conversation_history=conv_history,
                     rag_pipeline=rag,
                     llm_client=llm_client,
-                    llm_type=llm_type,
-                    model_deployment=model_deployment
+                    llm_type="deepseek",
+                    model_deployment=None
                 )
                 
                 msg_id = f"msg-{len(st.session_state.messages)}"
@@ -1830,43 +1801,28 @@ TOOL USAGE:
         logger.info(f"Agent loop iteration {loop_count}/{MAX_AGENT_LOOPS}")
         
         try:
-            # Call LLM with tools
-            if llm_type == "azure":
-                response = llm_client.chat.completions.create(
-                    model=model_deployment,
-                    messages=messages,
-                    tools=tools,
-                    tool_choice="auto",
-                    max_tokens=3500,
-                    temperature=0.1,
-                )
-                
-                response_message = response.choices[0].message
-                finish_reason = response.choices[0].finish_reason
-                
-            else:  # deepseek
-                headers = {
-                    "Authorization": f"Bearer {HF_TOKEN}",
-                    "Content-Type": "application/json"
-                }
-                payload = {
-                    "model": DEEPSEEK_MODEL_NAME,
-                    "messages": messages,
-                    "tools": tools,
-                    "tool_choice": "auto",
-                    "max_tokens": 3500,
-                    "temperature": 0.1
-                }
-                
-                r = requests.post(DEEPSEEK_API_URL, headers=headers, json=payload, timeout=120)
-                
-                if r.status_code != 200:
-                    logger.error(f"DeepSeek API error: {r.status_code} - {r.text}")
-                    return f"Sorry, model error: {r.status_code}", [], loop_count
-                
-                data = r.json()
-                response_message = data["choices"][0]["message"]
-                finish_reason = data["choices"][0]["finish_reason"]
+            headers = {
+                "Authorization": f"Bearer {HF_TOKEN}",
+                "Content-Type": "application/json"
+            }
+            payload = {
+                "model": DEEPSEEK_MODEL_NAME,
+                "messages": messages,
+                "tools": tools,
+                "tool_choice": "auto",
+                "max_tokens": 3500,
+                "temperature": 0.1
+            }
+
+            r = requests.post(DEEPSEEK_API_URL, headers=headers, json=payload, timeout=120)
+
+            if r.status_code != 200:
+                logger.error(f"DeepSeek API error: {r.status_code} - {r.text}")
+                return f"Sorry, model error: {r.status_code}", [], loop_count
+
+            data = r.json()
+            response_message = data["choices"][0]["message"]
+            finish_reason = data["choices"][0]["finish_reason"]
             
             # Check if tool calls are needed
             tool_calls = getattr(response_message, 'tool_calls', None) or response_message.get('tool_calls')
@@ -2348,21 +2304,12 @@ def export_conversation_pdf():
 
 @st.cache_resource(show_spinner=False)
 def get_rag_pipeline(selected_model: str):
-    params = {}
-    if selected_model == "GPT-4o-mini":
-        params = {
-            "llm_type": "azure",
-            "azure_key": AZURE_OPENAI_KEY,
-            "azure_endpoint": AZURE_OPENAI_ENDPOINT,
-            "azure_deployment": AZURE_OPENAI_DEPLOYMENT,
-        }
-    else:
-        params = {
-            "llm_type": "deepseek",
-            "hf_token": HF_TOKEN,
-            "deepseek_url": DEEPSEEK_API_URL,
-            "deepseek_model": DEEPSEEK_MODEL_NAME,
-        }
+    params = {
+        "llm_type": "deepseek",
+        "hf_token": HF_TOKEN,
+        "deepseek_url": DEEPSEEK_API_URL,
+        "deepseek_model": DEEPSEEK_MODEL_NAME,
+    }
     return RAGPipeline(
         pdf_folder=PDF_FOLDER,
         index_file=INDEX_FILE,
@@ -2372,14 +2319,6 @@ def get_rag_pipeline(selected_model: str):
 @st.cache_resource(show_spinner=False)
 def get_llm_client(selected_model: str):
     """Get LLM client for agent loop"""
-    if selected_model == "GPT-4o-mini":
-        from openai import AzureOpenAI
-        return AzureOpenAI(
-            api_key=AZURE_OPENAI_KEY,
-            api_version="2024-02-15-preview",
-            azure_endpoint=AZURE_OPENAI_ENDPOINT,
-        )
-    else:
-        return None
+    return None
 if __name__ == "__main__":
     main()
