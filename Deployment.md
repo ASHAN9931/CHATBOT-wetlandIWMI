@@ -22,25 +22,30 @@ Your application uses Google for authentication. You must configure the OAuth co
 
 ## 3. Setting Up Secrets
 
-The application requires API keys and credentials to run. You must set these as "secrets" in your Streamlit Cloud app settings.
+The `KeyError` you are seeing is because the application cannot find the required API keys and credentials in the Streamlit Cloud environment. To fix this, you must add them to your app's secrets.
 
-1.  **Go to your app's page on Streamlit Cloud.**
-2.  Click on **"Manage app"** in the lower right corner.
+1.  **Open the `secrets.toml` file** in this repository. This file is a template for all the secrets your application needs.
+
+2.  **Go to your app's page on Streamlit Cloud** and click on **"Manage app"** in the lower right corner.
+
 3.  Navigate to the **"Secrets"** management section.
-4.  Add the following secrets:
 
-    -   **`hf_token`**: Your Hugging Face API token.
-    -   **`client_id`**: Your Google OAuth Client ID.
-    -   **`client_secret`**: Your Google OAuth Client Secret.
-    -   **`redirect_uri`**: The redirect URI for your Streamlit app (must match the one in the Google Cloud Console).
+4.  **Copy the entire contents of the `secrets.toml` file and paste it into the secrets editor on Streamlit Cloud.**
 
-    *Example*:
-    ```toml
-    hf_token = "hf_..."
-    client_id = "....apps.googleusercontent.com"
-    client_secret = "GOCSPX-..."
-    redirect_uri = "https://your-app-name.streamlit.app/"
-    ```
+5.  **Replace the placeholder values** (e.g., `"YOUR_HF_TOKEN_HERE"`, `"YOUR_GOOGLE_CLIENT_ID_HERE"`) with your actual secret values.
+
+Your final secrets in the Streamlit Cloud editor should look like this, but with your real values:
+```toml
+# Hugging Face API Token
+hf_token = "hf_..."
+
+# Google OAuth Credentials
+client_id = "....apps.googleusercontent.com"
+client_secret = "GOCSPX-..."
+
+# The redirect URI for your Streamlit app.
+redirect_uri = "https://your-app-name.streamlit.app/"
+```
 
 ## 4. Handling Dependencies
 
