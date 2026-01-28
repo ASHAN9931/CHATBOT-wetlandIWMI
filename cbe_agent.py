@@ -558,33 +558,89 @@ class RAGPipeline:
         )
     
     def _save_index(self):
-        with open(self.index_file, "wb") as f:
-            pickle.dump({
-                "documents": self.documents,
-                "embeddings": self.embeddings,
-                "model": "sentence-transformers/all-mpnet-base-v2"
-            }, f)
+        """Save index to file(s)"""
+        # Handle both string and list cases for index_file
+        if isinstance(self.index_file, list):
+            # Save to all files in the list
+            for save_file in self.index_file:
+                with open(save_file, "wb") as f:
+                    pickle.dump({
+                        "documents": self.documents,
+                        "embeddings": self.embeddings,
+                        "model": "sentence-transformers/all-mpnet-base-v2"
+                    }, f)
+                logger.info(f"Saved index to '{save_file}'")
+        else:
+            # Single file
+            with open(self.index_file, "wb") as f:
+                pickle.dump({
+                    "documents": self.documents,
+                    "embeddings": self.embeddings,
+                    "model": "sentence-transformers/all-mpnet-base-v2"
+                }, f)
     
     def load_index(self):
-        if not os.path.exists(self.index_file):
-            return False
-        
-        try:
-            with open(self.index_file, "rb") as f:
-                data = pickle.load(f)
+        """Load index from file(s)"""
+        # Handle both string and list cases for index_file
+        if isinstance(self.index_file, list):
+            all_documents = []
+            all_embeddings = []
+            loaded_files = []
             
-            self.documents = data["documents"]
-            self.embeddings = data["embeddings"]
+            for index_file in self.index_file:
+                if os.path.exists(index_file):
+                    try:
+                        with open(index_file, "rb") as f:
+                            data = pickle.load(f)
+                        
+                        # Collect documents and embeddings from this file
+                        all_documents.extend(data["documents"])
+                        all_embeddings.append(data["embeddings"])
+                        loaded_files.append(index_file)
+                        
+                        logger.info(f"Loaded index from '{index_file}' with {len(data['documents'])} chunks")
+                        
+                    except Exception as e:
+                        logger.error(f"Failed to load index file '{index_file}': {e}")
+                        continue
             
+            if not loaded_files:
+                logger.error("Failed to load any of the index files")
+                return False
+            
+            # Combine all embeddings
+            self.documents = all_documents
+            self.embeddings = np.vstack(all_embeddings) if len(all_embeddings) > 1 else all_embeddings[0]
+            
+            # Build retrievers with all combined data
             texts = [doc.page_content for doc in self.documents]
             self._build_retrievers(self.documents, texts, self.embeddings)
             
-            logger.info(f"Loaded index with {len(self.documents)} chunks")
+            logger.info(f"✅ Successfully merged {len(loaded_files)} index files. Total chunks: {len(self.documents)}")
+            logger.info(f"Loaded files: {loaded_files}")
             return True
-        
-        except Exception as e:
-            logger.error(f"Failed to load index: {e}")
-            return False
+            
+        else:
+            # Original single file logic
+            if not os.path.exists(self.index_file):
+                return False
+            
+            try:
+                with open(self.index_file, "rb") as f:
+                    data = pickle.load(f)
+                
+                self.documents = data["documents"]
+                self.embeddings = data["embeddings"]
+                
+                texts = [doc.page_content for doc in self.documents]
+                self._build_retrievers(self.documents, texts, self.embeddings)
+                
+                logger.info(f"Loaded index with {len(self.documents)} chunks")
+                return True
+            
+            except Exception as e:
+                logger.error(f"Failed to load index: {e}")
+                return False
     
     def retrieve_documents(self, question: str, top_k: int = 8) -> Dict:
         """

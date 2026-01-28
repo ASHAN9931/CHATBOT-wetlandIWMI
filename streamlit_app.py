@@ -20,10 +20,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ------------------- CONFIG -------------------
-INDEX_FILE = "pdf_index_enhanced.pkl"
+INDEX_FILE = ["pdf_index_enhanced1.pkl", "pdf_index_enhanced2.pkl", "pdf_index_enhanced3.pkl"]
 
-# Secrets are checked in main(), so we can safely access them here.
-HF_TOKEN = st.secrets["hf_token"]
+# Access secrets with UPPERCASE keys (matching secrets.toml)
+HF_TOKEN = st.secrets["HF_TOKEN"]    # ✅ Fixed - was lowercase
 DEEPSEEK_API_URL = "https://router.huggingface.co/v1/chat/completions"
 DEEPSEEK_MODEL_NAME = "deepseek-ai/DeepSeek-V3.1:novita"
 
@@ -39,6 +39,8 @@ ACCENT_COLOR = "#10B981"
 BACKGROUND_LIGHT = "#F0FDFA"
 TEXT_PRIMARY = "#0F172A"
 TEXT_SECONDARY = "#475569"
+
+# Rest of your code stays exactly the same...
 
 # =============== SESSION STATE ===============
 
@@ -811,19 +813,35 @@ def main():
     st.set_page_config(
         page_title="CircularIQ - CBE Decision Support",
         layout="wide",
-        page_icon="🔄",
+        page_icon="🌿",
         initial_sidebar_state="expanded"
     )
 
     # Check for secrets first to avoid crashing with a KeyError
-    required_secrets = ["hf_token", "client_id", "client_secret", "redirect_uri"]
-    missing_secrets = [secret for secret in required_secrets if not st.secrets.get(secret)]
+    # Check for secrets first to avoid crashing with a KeyError
+def main():
+    st.set_page_config(
+        page_title="CircularIQ - CBE Decision Support",
+        layout="wide",
+        page_icon="🌿",
+        initial_sidebar_state="expanded"
+    )
 
+    # Check for secrets first to avoid crashing with a KeyError
+    # Use the exact secret names as defined in secrets.toml
+    required_secrets = ["HF_TOKEN", "client_id", "client_secret", "redirect_uri"]
+    missing_secrets = [secret for secret in required_secrets if secret not in st.secrets]
+    
     if missing_secrets:
         st.error(f"🚨 Missing Secrets: {', '.join(missing_secrets)}")
         st.warning("Please go to your app settings on Streamlit Cloud and add the missing secrets.")
         st.info("You can copy the template from the `secrets.toml` file in the repository and fill in your values.")
         st.stop()
+    
+    # Now safely access the secrets (they've been verified to exist)
+    HF_TOKEN = st.secrets["HF_TOKEN"]
+    # Store it in session state or a global variable for later use
+    st.session_state.HF_TOKEN = HF_TOKEN
     
     # 🔐 AUTHENTICATION CHECK
     if not check_google_auth():
@@ -938,7 +956,7 @@ def main():
     
     # Professional loading screen
     if not st.session_state.rag_loaded:
-        spinner_text = "🔄 Switching AI Model... Please wait." if st.session_state.is_switching else "🚀 Initializing CircularIQ Assistant... Please wait."
+        spinner_text = "🌿 Switching AI Model... Please wait." if st.session_state.is_switching else "🚀 Initializing WCPA Assistant... Please wait."
         with st.spinner(spinner_text):
             rag = get_rag_pipeline(st.session_state.model)
             if not rag.load_index():
@@ -1024,7 +1042,7 @@ def main():
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("🔄 New", use_container_width=True, help="Start a new conversation"):
+            if st.button("🌿 New", use_container_width=True, help="Start a new conversation"):
                 # Archive the current in-memory conversation (best-effort) before resetting.
                 archived_in_memory = False
                 try:
@@ -1375,6 +1393,7 @@ def main():
                 mime="application/pdf",
                 use_container_width=True,
                 help="Download conversation as PDF"
+            
             )
         
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1383,32 +1402,32 @@ def main():
         st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
         
         # About Section
-        with st.expander("ℹ️ About CircularIQ"):
+        with st.expander("ℹ️ About WCPA Assistant "):
             st.markdown("""
-            **CircularIQ** is the Circular Bioeconomy Decision Support Assistant (CBE-DSA), 
-            developed by **IWMI**.
-            
+            **Wetland Policy Advisory Assistant (WCPA)** is a specialized AI expert developed to support wetland conservation and environmental policy analysis.
+
             **Purpose:**
-            - Evidence-based decision support
-            - Circular bioeconomy insights
-            - Sustainable waste management
-            - Research dissemination
-            
+            - Wetland conservation, restoration, and sustainable management
+            - Environmental policy analysis and implementation
+            - Nature-based solutions and ecosystem services
+            - Regulatory frameworks and compliance
+
             **Target Users:**
-            - Policymakers
-            - Industry professionals
-            - Entrepreneurs & Investors
-            - Development partners
+            - Environmental policymakers
+            - Conservation professionals
+            - Regulatory compliance officers
+            - Environmental researchers
+            - Sustainable development partners
             """)
     
     # Header
     st.markdown(f"""
     <div class="header-container">
         <div class="brand-container">
-            <span class="brand-icon">🔄</span>
-            <h1 class="header-title">CircularIQ</h1>
+            <span class="brand-icon">🌿</span>
+            <h1 class="header-title">WCPA Assistant</h1>
         </div>
-        <p class="header-subtitle">Circular Bioeconomy Decision Support Assistant</p>
+        <p class="header-subtitle">Circular Wetland Conservation Policy Support Assistant</p>
         <div style="text-align: center;">
             <span class="iwmi-badge">
                 🌍 Powered by IWMI Research
@@ -1421,14 +1440,14 @@ def main():
     if len(st.session_state.messages) == 0:
         st.markdown("""
         <div class="info-box">
-            <strong>👋 Welcome to CircularIQ!</strong><br>
-            I'm your AI-powered assistant for circular bioeconomy and sustainable waste management. 
+            <strong>🌿 Welcome to the Wetland Conservation Policy Assistant!</strong><br>
+            I'm your AI-powered expert for wetland conservation and environmental policy analysis. 
             Ask me questions about:<br>
-            • Circular economy principles & business models<br>
-            • Sustainable waste management & resource recovery<br>
-            • Climate-smart agricultural systems<br>
-            • Policy frameworks & financing strategies<br>
-            • Innovation ecosystems & partnerships
+            • Wetland conservation strategies and restoration techniques<br>
+            • Environmental policy frameworks and regulatory compliance<br>
+            • Nature-based solutions and ecosystem services valuation<br>
+            • Climate adaptation and mitigation through wetland management<br>
+            • Sustainable development and biodiversity conservation policies
         </div>
         """, unsafe_allow_html=True)
     
@@ -1524,7 +1543,7 @@ def main():
             user_input = chat_input_widget(
                 key=widget_key,
                 pdf_data=pdf_data_b64,
-                pdf_filename=f"CircularIQ_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+                pdf_filename=f"WCPA Assistant_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 dark_mode=st.session_state.dark_mode,
                 show_suggestions=(len(st.session_state.messages) == 0)
             )
@@ -1642,7 +1661,7 @@ def main():
                 })
         
         # Run agent loop
-        with st.spinner("🤖 CircularIQ is thinking..."):
+        with st.spinner("🤖 WCPA Assistant is thinking..."):
             try:
                 answer, retrieved_docs, loop_count = run_agent_loop(
                     user_question=prompt,
@@ -1692,7 +1711,7 @@ def main():
     # Footer
     st.markdown("""
     <div style="text-align: center; padding: 2rem 0 1rem 0; color: #94A3B8; font-size: 0.85rem;">
-        <p>🌱 <strong>CircularIQ</strong> - Empowering Evidence-Based Decisions</p>
+        <p>🌱 <strong>WCPA Assistant</strong> - Empowering Evidence-Based Decisions</p>
         <p>Developed by IWMI | <a href="https://www.iwmi.cgiar.org">www.iwmi.cgiar.org</a></p>
     </div>
     """, unsafe_allow_html=True)
@@ -1750,49 +1769,33 @@ def run_agent_loop(user_question: str, conversation_history: list, rag_pipeline,
     """
     tools = get_tool_definitions()
     
-    system_prompt = """You are the Circular Bioeconomy Decision Support Assistant (CBE-DSA) - an AI-powered chatbot developed to disseminate applied research and evidence-based insights from the International Water Management Institute (IWMI) and related partners.
+    system_prompt = """You are the Wetland Conservation Policy Assistant (WCPA) - an AI-powered expert specialized in wetland conservation, environmental policy analysis, and sustainable ecosystem management.
 
-Your primary goal is to help users, including policymakers, industry professionals, entrepreneurs, investors, and development partners, make informed, evidence-based decisions in the circular bioeconomy and sustainable waste management.
+I use a sophisticated document categorization system to provide accurate, context-specific answers. Documents are categorized into:
+- Environment & Environmental Governance (environmental policies, pollution control)
+- Land Use & Management (land policies, urban planning)
+- Biodiversity & Wildlife Conservation (protected areas, wildlife)
+- Wetlands & Coastal Resources (wetland policies, marine resources)
+- Water Resources & Irrigation (water management, irrigation)
+- Agriculture & Soil (agricultural policies, soil conservation)
+- Climate Change & Disaster Risk (climate policies, energy)
+- And other specialized categories
 
-Role and Behaviour:
-- Serve as a research-driven knowledge advisor, interpreting academic and technical content into concise, practical, and actionable insights.
-- Remain accurate, context-aware, and user-oriented, tailoring responses to the user's role (e.g., policymaker vs. entrepreneur).
-- Use the retrieve_documents tool to search IWMI documents when you need factual information to answer questions.
-- After retrieving documents, synthesize the information into a clear, structured response.
-- For follow-up questions, use conversation history to provide coherent, contextual responses.
-- Sense the tone of the question to understand if the user needs generic or specific information.
+When answering, I focus on the most relevant category based on your question to provide precise, targeted information.
 
-Tone and Communication Style:
-- Professional, clear, neutral, and factual.
-- Use plain language; cite sources when needed.
-- Emphasize practical impact and innovation.
-
-Response Format:
-- **Overview:** Provide a summary of the findings (20-30 words for specific questions, 50-100 words for response to generic questions).
-- **Key Points:**
-    • Use bullet points starting with "•".
-    • After EACH bullet point, insert a blank line (exactly one empty line).
-    • Each bullet point must be one sentence only.
-- **Implications:** Present the practical or policy relevance as bullet points (20-30 words for specific questions, 50-100 words for response to generic questions).
-- **If comparative or quantitative data are available**, display them using a **Markdown table** (| Column | Column |).
-- **Always cite sources** in [Source X] format after each claim.
-- **Avoid long paragraphs**; favour bullet points and tabular summaries for clarity.
-
-CONVERSATION FLOW & ENGAGEMENT (MANDATORY)
-- **Every response must end with a proactive, context-aware follow-up question or suggestion.**
-- Prefer follow-up questions that can be answered using details from previous exchanges or current information.
-- This keeps the conversation alive and guides the user toward deeper insights.
-
-Restrictions and Limitations:
-- Do not fabricate references, data, or methodologies.
-- Always clarify if a recommendation is derived from evidence or an inferred interpretation.
-- Avoid expressing political bias, or speculative prejudices.
-- Refrain from giving prescriptive financial or legal advice.
-
-TOOL USAGE:
-- When you need information to answer a question, use the retrieve_documents tool.
-- After receiving tool results, synthesize the information and provide a comprehensive answer.
-- If no relevant documents are found, acknowledge this and provide general guidance based on your training."""
+-I. Prioritization Logic (Mandatory)
+When a user asks a question, you must first identify the keywords and provide a "Legal Hierarchy" list sorted by the following priority:
+Primary Authority: The Act, Policy, or Strategy that contains the specific keyword (e.g., "Wetland," "Mangrove," "Elephant," "Fisheries") in its title or core focus.
+Secondary Authority: Related NRM instruments that govern the activity or site (e.g., Fauna and Flora Protection Ordinance for species, protected areas, biodiversity; Town and Country Planning for land use).
+Tertiary Authority: Broad environmental frameworks (e.g., National Environmental Act) or planning ordinances that provide overarching legal power.
+II. Response Structure
+Legal Hierarchy: A bulleted list of relevant acts/policies in order of priority.
+The Guidance: A concise explanation of the rules, restrictions, or requirements based on the provided documents.
+Citations: Every fact must be followed by a citation in the format: ``.
+Follow-up: One proactive question to help the user move from "knowledge" to "compliance/action."
+III. Knowledge Constraints
+Rely strictly on the provided documents.
+If a user asks about a topic covered by an act you know exists but is NOT in your library (e.g., the Coast Conservation Act), state: "The Coast Conservation Act is likely the primary authority here, but it is not currently in my reference library. Based on the documents I have..."""
 
     messages = [{"role": "system", "content": system_prompt}]
     
@@ -2252,7 +2255,7 @@ def export_conversation_pdf():
         
         pdf.set_font('Arial', 'B', 20)
         pdf.set_text_color(15, 118, 110)
-        pdf.cell(0, 10, 'CircularIQ Conversation Export', 0, 1, 'C')
+        pdf.cell(0, 10, 'WCPA Assistant Conversation Export', 0, 1, 'C')
         pdf.ln(5)
         
         pdf.set_font('Arial', '', 10)
@@ -2266,7 +2269,7 @@ def export_conversation_pdf():
         for i, msg in enumerate(st.session_state.messages, 1):
             pdf.set_font('Arial', 'B', 12)
             pdf.set_text_color(15, 118, 110)
-            role_text = f"User (Message {i})" if msg["role"] == "user" else f"CircularIQ Assistant (Message {i})"
+            role_text = f"User (Message {i})" if msg["role"] == "user" else f"WCPA Assistant Assistant (Message {i})"
             pdf.cell(0, 8, role_text, 0, 1)
             
             pdf.set_font('Arial', '', 10)
@@ -2298,7 +2301,7 @@ def export_conversation_pdf():
         pdf.ln(10)
         pdf.set_font('Arial', 'I', 8)
         pdf.set_text_color(107, 114, 128)
-        pdf.multi_cell(0, 5, 'CircularIQ - Circular Bioeconomy Decision Support Assistant\nDeveloped by International Water Management Institute (IWMI)')
+        pdf.multi_cell(0, 5, 'WCPA Assistant - Wetland Conservation Policy Support Assistant\nDeveloped by International Water Management Institute (IWMI)')
         
         pdf_output = pdf.output(dest='S')
         if isinstance(pdf_output, str):
