@@ -17,11 +17,12 @@ interface ChatInputWidgetProps extends ComponentProps {
     pdf_filename?: string;
     dark_mode?: boolean;
     show_suggestions?: boolean;
+    suggestions?: string[];
   };
 }
 
-// Suggestion prompts for empty chat state
-const SUGGESTIONS = [
+// Default suggestion prompts for empty chat state
+const DEFAULT_SUGGESTIONS = [
   "Wetlands Protection Act overview",
   "Ramsar Convention implementation",
   "Constructed wetlands for treatment",
@@ -42,6 +43,7 @@ const ChatInputWidget: React.FC<ChatInputWidgetProps> = ({ args }) => {
   const pdfFilename = args.pdf_filename ?? "conversation.pdf";
   const darkMode = args.dark_mode ?? false;
   const showSuggestions = args.show_suggestions ?? false;
+  const suggestions = args.suggestions ?? DEFAULT_SUGGESTIONS;
 
   useEffect(() => {
     Streamlit.setFrameHeight();
@@ -129,7 +131,7 @@ const ChatInputWidget: React.FC<ChatInputWidgetProps> = ({ args }) => {
     <div className="chat-widget-wrapper">
       {showSuggestions && (
         <div className={`suggestion-chips ${darkMode ? 'dark' : ''}`}>
-          {SUGGESTIONS.map((s, i) => (
+          {suggestions.map((s, i) => (
             <button
               key={i}
               className="suggestion-chip"
