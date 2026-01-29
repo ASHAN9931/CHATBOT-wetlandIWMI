@@ -68,3 +68,7 @@ dist/
 htmlcov/
 .tox/
 
+.streamlit_auth_tokens_*.json 
+.env 
+secrets.toml 
+.streamlit/ 
