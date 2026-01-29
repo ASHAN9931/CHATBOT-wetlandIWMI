@@ -1008,7 +1008,7 @@ def main():
         # Divider after profile
         st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
         
-        st.markdown('<h4 class="control-panel-header">AI Model</h4>', unsafe_allow_html=True)
+       
         
         # Model Selection - without section box
         st.markdown('<div class="section-content">', unsafe_allow_html=True)
