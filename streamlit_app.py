@@ -15,7 +15,17 @@ import logging
 # Import RAG pipeline
 from cbe_agent import RAGPipeline
 from google_auth import check_google_auth
+from token_manager import get_token_rotator, HFTokenRotator
 
+# Remove the old HF_TOKEN line and replace with:
+# Initialize token rotator
+try:
+    token_rotator = get_token_rotator()
+    # Get first token
+    _, HF_TOKEN = token_rotator.get_next_token()
+except Exception as e:
+    st.error(f"🚨 Failed to initialize token rotator: {e}")
+    st.stop()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
