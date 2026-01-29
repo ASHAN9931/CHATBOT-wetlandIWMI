@@ -1723,7 +1723,7 @@ def get_tool_definitions():
             "type": "function",
             "function": {
                 "name": "retrieve_documents",
-                "description": "Retrieve relevant documents from the IWMI knowledge base to answer questions about circular bioeconomy, waste management, water reuse, and sustainable agriculture. Use this tool when you need factual information from research documents.",
+                "description": "Retrieve relevant documents from the wetland conservation knowledge base to answer questions about wetland protection policies, environmental regulations, conservation acts, panel guidelines, wetland management practices, and sustainable ecosystem preservation. Use this tool when you need authoritative information from policy documents, legal frameworks, regulatory guidelines, and conservation research materials related to wetland ecosystems and their protection.",
                 "parameters": {
                     "type": "object",
                     "properties": {
