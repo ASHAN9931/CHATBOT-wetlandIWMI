@@ -1545,8 +1545,7 @@ def main():
                 pdf_data=pdf_data_b64,
                 pdf_filename=f"WCPA Assistant_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 dark_mode=st.session_state.dark_mode,
-                show_suggestions=(len(st.session_state.messages) == 0)
-            )
+                show_suggestions=(False)
         except Exception as e:
             # Log minimal error info and present fallback so the app remains functional
             import traceback, sys
