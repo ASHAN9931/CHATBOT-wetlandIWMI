@@ -811,7 +811,7 @@ def _guest_store():
 
 def main():
     st.set_page_config(
-        page_title="CircularIQ - CBE Decision Support",
+        page_title="WCPA Assistant",
         layout="wide",
         page_icon="🌿",
         initial_sidebar_state="expanded"
@@ -821,7 +821,7 @@ def main():
     # Check for secrets first to avoid crashing with a KeyError
 def main():
     st.set_page_config(
-        page_title="CircularIQ - CBE Decision Support",
+        page_title="WCPA Assistant",
         layout="wide",
         page_icon="🌿",
         initial_sidebar_state="expanded"
@@ -1389,7 +1389,7 @@ def main():
             st.download_button(
                 label="📕 Download PDF",
                 data=pdf_content,
-                file_name=f"CircularIQ_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+                file_name=f"WCPA_Assistant_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 mime="application/pdf",
                 use_container_width=True,
                 help="Download conversation as PDF"
@@ -1427,7 +1427,7 @@ def main():
             <span class="brand-icon">🌿</span>
             <h1 class="header-title">WCPA Assistant</h1>
         </div>
-        <p class="header-subtitle">Circular Wetland Conservation Policy Support Assistant</p>
+        <p class="header-subtitle">Wetland Conservation Policy Support Assistant</p>
         <div style="text-align: center;">
             <span class="iwmi-badge">
                 🌍 Powered by IWMI Research
