@@ -22,10 +22,10 @@ interface ChatInputWidgetProps extends ComponentProps {
 
 // Suggestion prompts for empty chat state
 const SUGGESTIONS = [
-  "Wetlands Protection Act overview",
-  "Ramsar Convention implementation",
-  "Constructed wetlands for treatment",
-  "Mangrove restoration strategies",
+"Wetlands Protection Act overview",
+"Ramsar Convention implementation",
+"Constructed wetlands for treatment",
+"Mangrove restoration strategies",
 ];
 
 const ChatInputWidget: React.FC<ChatInputWidgetProps> = ({ args }) => {
