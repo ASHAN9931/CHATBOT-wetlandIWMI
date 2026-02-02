@@ -1431,20 +1431,115 @@ def main():
             """)
     
     # Header
-    st.markdown(f"""
-    <div class="header-container">
-        <div class="brand-container">
-            <span class="brand-icon">🌿</span>
+    header_images = ["bottu.png", "kokku.png", "Anawilundawa.png"]
+    
+    # Encode all images
+    img_data = []
+    for img_path in header_images:
+        if os.path.exists(img_path):
+            with open(img_path, 'rb') as f:
+                img_data.append(base64.b64encode(f.read()).decode())
+    
+    if len(img_data) >= 3:
+        st.markdown(f"""
+        <style>
+        .header-section {{
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
+            padding: 1rem 1rem 0.8rem 1rem;
+            text-align: center;
+            margin: 0;
+            position: relative;
+        }}
+        
+        .header-title {{
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff !important;
+            margin: 0 0 0.2rem 0;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }}
+        
+        .header-subtitle {{
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #374151;
+            margin: 0;
+            line-height: 1.2;
+        }}
+        
+        .header-badge {{
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            position: absolute;
+            bottom: 0.8rem;
+            right: 1rem;
+        }}
+        
+        .header-badge::before {{
+            content: "⚡";
+            font-size: 0.9rem;
+        }}
+        
+        .slideshow-container {{
+            width: 100%;
+            height: 250px;
+            position: relative;
+            margin: 0 0 2rem 0;
+            border-radius: 0 0 24px 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(15, 118, 110, 0.15);
+        }}
+        
+        .slideshow-container img {{
+            position: absolute;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            opacity: 0;
+            animation: slide 12s infinite;
+        }}
+        
+        .slideshow-container img:nth-child(1) {{
+            animation-delay: 0s;
+        }}
+        
+        .slideshow-container img:nth-child(2) {{
+            animation-delay: 4s;
+        }}
+        
+        .slideshow-container img:nth-child(3) {{
+            animation-delay: 8s;
+        }}
+        
+        @keyframes slide {{
+            0% {{ opacity: 0; }}
+            3% {{ opacity: 1; }}
+            33% {{ opacity: 1; }}
+            36% {{ opacity: 0; }}
+            100% {{ opacity: 0; }}
+        }}
+        </style>
+        
+        <div class="header-section">
             <h1 class="header-title">WCPA Assistant</h1>
+            <p class="header-subtitle">Wetland Conservation Policy Support Assistant</p>
+            <div class="header-badge">Powered by IWMI Research</div>
         </div>
-        <p class="header-subtitle">Wetland Conservation Policy Support Assistant</p>
-        <div style="text-align: center;">
-            <span class="iwmi-badge">
-                🌍 Powered by IWMI Research
-            </span>
+        
+        <div class="slideshow-container">
+            <img src="data:image/png;base64,{img_data[0]}" alt="Slide 1">
+            <img src="data:image/png;base64,{img_data[1]}" alt="Slide 2">
+            <img src="data:image/png;base64,{img_data[2]}" alt="Slide 3">
         </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     # Welcome message for new users
     if len(st.session_state.messages) == 0:
