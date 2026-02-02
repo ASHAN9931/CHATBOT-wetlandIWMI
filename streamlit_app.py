@@ -1926,6 +1926,15 @@ OUTPUT REQUIREMENTS:
 - Be thorough while maintaining clarity
 - Provide actionable, detailed guidance
 
+Your goal: Provide accurate, hierarchical, citation-backed environmental policy guidance with comprehensive detail for practical compliance and conservation action."
+- Never fabricate or assume content not in your documents
+
+OUTPUT REQUIREMENTS:
+- Deliver comprehensive answers: 300-400 words
+- Use appropriate formatting (tables, bullets, paragraphs) based on content
+- Be thorough while maintaining clarity
+- Provide actionable, detailed guidance
+
 Your goal: Provide accurate, hierarchical, citation-backed environmental policy guidance with comprehensive detail for practical compliance and conservation action."""
 
     messages = [{"role": "system", "content": system_prompt}]
