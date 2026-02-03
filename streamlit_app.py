@@ -1547,7 +1547,7 @@ def main():
     if len(st.session_state.messages) == 0:
         st.markdown("""
         <div class="info-box">
-            <strong>🌿 Welcome to the Wetland Conservation Policy Assistant!</strong><br>
+            <strong>🌿Wetland Information & Conservation Policy support Assistant - Sri Lanka</strong><br>
             I'm your AI-powered expert for wetland conservation and environmental policy analysis. 
             Ask me questions about:<br>
             • Wetland conservation strategies and restoration techniques<br>
