@@ -321,15 +321,15 @@ def load_custom_css(dark_mode=False):
     button[kind="secondary"],
     button[kind="primary"] {{
         width: 100%;
-        background: {"linear-gradient(135deg, #0d9488 0%, #14b8a6 100%)" if dark_mode else f"linear-gradient(135deg, {PRIMARY_COLOR} 0%, {SECONDARY_COLOR} 100%)"} !important;
+        background: {"linear-gradient(135deg, #2E8B6E 0%, #3EB489 100%)" if dark_mode else "linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%)"} !important;
         color: white !important;
-        border: {"1px solid #14b8a6" if dark_mode else "none"} !important;
+        border: {"1px solid #3EB489" if dark_mode else "none"} !important;
         padding: 0.5rem 0.75rem !important;
         border-radius: 10px !important;
         font-weight: 600 !important;
         font-size: 0.8rem !important;
         transition: all 0.3s ease !important;
-        box-shadow: {"0 4px 12px rgba(20, 184, 166, 0.3)" if dark_mode else "0 4px 12px rgba(15, 118, 110, 0.2)"} !important;
+        box-shadow: {"0 4px 12px rgba(62, 180, 137, 0.3)" if dark_mode else "0 4px 12px rgba(62, 180, 137, 0.25)"} !important;
         min-height: 38px !important;
         height: 38px !important;
         line-height: 1 !important;
@@ -353,7 +353,7 @@ def load_custom_css(dark_mode=False):
     section[data-testid="stSidebar"] [data-testid="stBaseButton-primary"],
     section[data-testid="stSidebar"] button[kind="secondary"],
     section[data-testid="stSidebar"] button[kind="primary"] {{
-        background: {"linear-gradient(135deg, #0d9488 0%, #14b8a6 100%)" if dark_mode else f"linear-gradient(135deg, {PRIMARY_COLOR} 0%, {SECONDARY_COLOR} 100%)"} !important;
+        background: {"linear-gradient(135deg, #2E8B6E 0%, #3EB489 100%)" if dark_mode else "linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%)"} !important;
         color: white !important;
     }}
     
@@ -379,33 +379,35 @@ def load_custom_css(dark_mode=False):
     
     .stButton > button:hover {{
         transform: translateY(-2px);
-        box-shadow: {"0 6px 20px rgba(20, 184, 166, 0.4)" if dark_mode else "0 6px 20px rgba(15, 118, 110, 0.3)"};
+        box-shadow: {"0 6px 20px rgba(62, 180, 137, 0.45)" if dark_mode else "0 6px 20px rgba(62, 180, 137, 0.35)"};
     }}
     
     .stDownloadButton > button {{
         width: 100%;
-        background: {bg_card};
-        color: {accent} !important;
-        border: 2px solid {accent};
+        background: linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%);
+        color: #ffffff !important;
+        border: none;
         padding: 0.6rem 1rem;
         border-radius: 10px;
         font-weight: 600;
         font-size: 0.85rem;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(62, 180, 137, 0.25);
     }}
     
     .stDownloadButton > button p {{
-        color: {accent} !important;
+        color: #ffffff !important;
     }}
     
     .stDownloadButton > button:hover {{
-        background: {accent};
-        color: {"#0f172a" if dark_mode else "white"} !important;
+        background: linear-gradient(135deg, #2E8B6E 0%, #278F5E 100%);
+        color: #ffffff !important;
+        box-shadow: 0 6px 20px rgba(62, 180, 137, 0.35);
     }}
     
     .stDownloadButton > button:hover *,
     .stDownloadButton > button:hover p {{
-        color: {"#0f172a" if dark_mode else "white"} !important;
+        color: #ffffff !important;
     }}
     
     /* Tooltip styling for dark mode */
@@ -714,8 +716,8 @@ def load_custom_css(dark_mode=False):
     
     button[key="logout_btn"] {{
         width: 100%;
-        background: rgba(255, 255, 255, 0.95) !important;
-        color: {PRIMARY_COLOR} !important;
+        background: linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%) !important;
+        color: #ffffff !important;
         border: none !important;
         padding: 0.5rem 0.75rem !important;
         border-radius: 8px !important;
@@ -727,9 +729,9 @@ def load_custom_css(dark_mode=False):
     }}
     
     button[key="logout_btn"]:hover {{
-        background: {bg_card} !important;
+        background: linear-gradient(135deg, #2E8B6E 0%, #278F5E 100%) !important;
         transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        box-shadow: 0 4px 12px rgba(62, 180, 137, 0.35) !important;
     }}
     
     button[key="logout_btn"]:active {{
@@ -739,9 +741,9 @@ def load_custom_css(dark_mode=False):
     /* Theme Toggle Button Styling */
     button[key="theme_toggle_btn"] {{
         width: 100%;
-        background: {"#21262D" if dark_mode else "rgba(255, 255, 255, 0.95)"} !important;
-        color: {"#58A6FF" if dark_mode else PRIMARY_COLOR} !important;
-        border: 1px solid {"#30363D" if dark_mode else "transparent"} !important;
+        background: {"linear-gradient(135deg, #2E8B6E 0%, #3EB489 100%)" if dark_mode else "linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%)"} !important;
+        color: #ffffff !important;
+        border: {"1px solid #3EB489" if dark_mode else "none"} !important;
         padding: 0.5rem 0.75rem !important;
         border-radius: 8px !important;
         font-weight: 600 !important;
@@ -752,9 +754,9 @@ def load_custom_css(dark_mode=False):
     }}
     
     button[key="theme_toggle_btn"]:hover {{
-        background: {"#30363D" if dark_mode else "white"} !important;
+        background: {"linear-gradient(135deg, #2E8B6E 0%, #278F5E 100%)" if dark_mode else "linear-gradient(135deg, #2E8B6E 0%, #278F5E 100%)"} !important;
         transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px {"rgba(88, 166, 255, 0.15)" if dark_mode else "rgba(0, 0, 0, 0.15)"} !important;
+        box-shadow: 0 4px 12px rgba(62, 180, 137, 0.35) !important;
     }}
     
     /* Sidebar Divider */
