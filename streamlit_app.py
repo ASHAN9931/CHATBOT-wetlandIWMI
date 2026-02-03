@@ -1532,7 +1532,7 @@ def main():
         
         <div class="header-section">
             <h1 class="header-title">Marsh Warden</h1>
-            <p class="header-subtitle">Wetland Conservation Policy Support Assistant</p>
+            <p class="header-subtitle">Wetland Information & Conservation Policy support Assistant - Sri Lanka</p>
             <div class="header-badge">Powered by IWMI Research</div>
         </div>
         
@@ -2443,7 +2443,7 @@ def export_conversation_pdf():
         pdf.ln(10)
         pdf.set_font('Arial', 'I', 8)
         pdf.set_text_color(107, 114, 128)
-        pdf.multi_cell(0, 5, 'Marsh Warden - Wetland Conservation Policy Support Assistant\nDeveloped by International Water Management Institute (IWMI)')
+        pdf.multi_cell(0, 5, 'Marsh Warden - Wetland Information & Conservation Policy support Assistant - Sri Lanka\nDeveloped by International Water Management Institute (IWMI)')
         
         pdf_output = pdf.output(dest='S')
         if isinstance(pdf_output, str):
