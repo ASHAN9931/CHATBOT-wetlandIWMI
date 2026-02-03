@@ -635,12 +635,12 @@ def load_custom_css(dark_mode=False):
     
     /* Profile Card Styling - Google-like */
     .profile-card {{
-        background: linear-gradient(135deg, {PRIMARY_COLOR} 0%, {SECONDARY_COLOR} 100%);
+        background: linear-gradient(135deg, #3EB489 0%, #2E8B6E 100%);
         border-radius: 16px;
         padding: 1rem;
         margin-bottom: 0.5rem;
         text-align: center;
-        box-shadow: 0 8px 24px rgba(15, 118, 110, 0.2);
+        box-shadow: 0 8px 24px rgba(62, 180, 137, 0.3);
         position: relative;
         overflow: hidden;
     }}
@@ -679,7 +679,7 @@ def load_custom_css(dark_mode=False):
     .profile-initial {{
         font-size: 2rem;
         font-weight: 600;
-        color: {PRIMARY_COLOR};
+        color: #3EB489;
         text-transform: uppercase;
         user-select: none;
     }}
