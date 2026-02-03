@@ -1486,7 +1486,7 @@ def main():
         }}
         
         .header-badge::before {{
-            content: "⚡";
+            content: "🌍";
             font-size: 0.9rem;
         }}
         
