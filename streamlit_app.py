@@ -821,7 +821,7 @@ def _guest_store():
 
 def main():
     st.set_page_config(
-        page_title="WCPA Assistant",
+        page_title="Marsh Warden",
         layout="wide",
         page_icon="🌿",
         initial_sidebar_state="expanded"
@@ -831,7 +831,7 @@ def main():
     # Check for secrets first to avoid crashing with a KeyError
 def main():
     st.set_page_config(
-        page_title="WCPA Assistant",
+        page_title="Marsh Warden",
         layout="wide",
         page_icon="🌿",
         initial_sidebar_state="expanded"
@@ -966,7 +966,7 @@ def main():
     
     # Professional loading screen
     if not st.session_state.rag_loaded:
-        spinner_text = "🌿 Switching AI Model... Please wait." if st.session_state.is_switching else "🚀 Initializing WCPA Assistant... Please wait."
+        spinner_text = "🌿 Switching AI Model... Please wait." if st.session_state.is_switching else "🚀 Initializing Marsh Warden... Please wait."
         with st.spinner(spinner_text):
             rag = get_rag_pipeline(st.session_state.model)
             if not rag.load_index():
@@ -1399,7 +1399,7 @@ def main():
             st.download_button(
                 label="📕 Download PDF",
                 data=pdf_content,
-                file_name=f"WCPA_Assistant_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+                file_name=f"Marsh Warden_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 mime="application/pdf",
                 use_container_width=True,
                 help="Download conversation as PDF"
@@ -1412,9 +1412,9 @@ def main():
         st.markdown('<div class="sidebar-divider"></div>', unsafe_allow_html=True)
         
         # About Section
-        with st.expander("ℹ️ About WCPA Assistant "):
+        with st.expander("ℹ️ About Marsh Warden "):
             st.markdown("""
-            **Wetland Policy Advisory Assistant (WCPA)** is a specialized AI expert developed to support wetland conservation and environmental policy analysis.
+            **Marsh Warden** is a specialized AI expert developed to support wetland conservation and environmental policy analysis.
 
             **Purpose:**
             - Wetland conservation, restoration, and sustainable management
@@ -1529,7 +1529,7 @@ def main():
         </style>
         
         <div class="header-section">
-            <h1 class="header-title">WCPA Assistant</h1>
+            <h1 class="header-title">Marsh Warden</h1>
             <p class="header-subtitle">Wetland Conservation Policy Support Assistant</p>
             <div class="header-badge">Powered by IWMI Research</div>
         </div>
@@ -1648,7 +1648,7 @@ def main():
             user_input = chat_input_widget(
                 key=widget_key,
                 pdf_data=pdf_data_b64,
-                pdf_filename=f"WCPA Assistant_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+                pdf_filename=f"Marsh Warden_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 dark_mode=st.session_state.dark_mode,
                 show_suggestions=(False))
         except Exception as e:
@@ -1765,7 +1765,7 @@ def main():
                 })
         
         # Run agent loop
-        with st.spinner("🤖 WCPA Assistant is thinking..."):
+        with st.spinner("🤖 Marsh Warden is thinking..."):
             try:
                 answer, retrieved_docs, loop_count = run_agent_loop(
                     user_question=prompt,
@@ -1815,7 +1815,7 @@ def main():
     # Footer
     st.markdown("""
     <div style="text-align: center; padding: 2rem 0 1rem 0; color: #94A3B8; font-size: 0.85rem;">
-        <p>🌱 <strong>WCPA Assistant</strong> - Empowering Evidence-Based Decisions</p>
+        <p>🌱 <strong>Marsh Warden</strong> - Empowering Evidence-Based Decisions</p>
         <p>Developed by IWMI | <a href="https://www.iwmi.cgiar.org">www.iwmi.cgiar.org</a></p>
     </div>
     """, unsafe_allow_html=True)
@@ -1873,7 +1873,7 @@ def run_agent_loop(user_question: str, conversation_history: list, rag_pipeline,
     """
     tools = get_tool_definitions()
     
-    system_prompt = """You are the Wetland Conservation Policy Assistant (WCPA) - an AI-powered expert specialized in wetland conservation, environmental policy analysis, and sustainable ecosystem management for Sri Lanka.
+    system_prompt = """You are the Marsh Warden - an AI-powered expert specialized in wetland conservation, environmental policy analysis, and sustainable ecosystem management for Sri Lanka.
 
 MANDATORY RESPONSE STRUCTURE:
 
@@ -2395,7 +2395,7 @@ def export_conversation_pdf():
         
         pdf.set_font('Arial', 'B', 20)
         pdf.set_text_color(15, 118, 110)
-        pdf.cell(0, 10, 'WCPA Assistant Conversation Export', 0, 1, 'C')
+        pdf.cell(0, 10, 'Marsh Warden Conversation Export', 0, 1, 'C')
         pdf.ln(5)
         
         pdf.set_font('Arial', '', 10)
@@ -2409,7 +2409,7 @@ def export_conversation_pdf():
         for i, msg in enumerate(st.session_state.messages, 1):
             pdf.set_font('Arial', 'B', 12)
             pdf.set_text_color(15, 118, 110)
-            role_text = f"User (Message {i})" if msg["role"] == "user" else f"WCPA Assistant Assistant (Message {i})"
+            role_text = f"User (Message {i})" if msg["role"] == "user" else f"Marsh Warden (Message {i})"
             pdf.cell(0, 8, role_text, 0, 1)
             
             pdf.set_font('Arial', '', 10)
@@ -2441,7 +2441,7 @@ def export_conversation_pdf():
         pdf.ln(10)
         pdf.set_font('Arial', 'I', 8)
         pdf.set_text_color(107, 114, 128)
-        pdf.multi_cell(0, 5, 'WCPA Assistant - Wetland Conservation Policy Support Assistant\nDeveloped by International Water Management Institute (IWMI)')
+        pdf.multi_cell(0, 5, 'Marsh Warden - Wetland Conservation Policy Support Assistant\nDeveloped by International Water Management Institute (IWMI)')
         
         pdf_output = pdf.output(dest='S')
         if isinstance(pdf_output, str):
