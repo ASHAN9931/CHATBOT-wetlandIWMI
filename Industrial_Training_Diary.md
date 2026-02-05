@@ -63,12 +63,13 @@
 
 ---
 
-### Week 3: Core RAG - Processing and Semantic Chunking (Dec 22 – Dec 26)
+### Week 3: Core RAG - Processing and Semantic Chunking (Dec 22 – Dec 24)
+*(Note: Dec 25 and Dec 26 were Public Holidays)*
 
 **2025.12.22**
 * Researched advanced chunking strategies to maintain context in long legal and policy documents.
-* Evaluated the limitations of fixed-size chunking and explored semantic alternatives.
 * Studied the impact of chunk overlap on retrieval accuracy and context window utilization.
+* Defined a robust metadata schema for each document chunk to ensure accurate source attribution, including page numbers and content types.
 
 **2025.12.23**
 * Implemented the `SemanticChunker` class using SentenceTransformers for intelligent text splitting.
@@ -78,21 +79,12 @@
 **2025.12.24**
 * Refined the text normalization pipeline to handle inconsistencies in punctuation and formatting.
 * Implemented a cleaning layer to remove OCR errors and non-printable characters.
-* Developed a routine to normalize technical terms and acronyms common in wetland conservation.
-
-**2025.12.25**
-* Defined a robust metadata schema for each document chunk to ensure accurate source attribution.
-* Included fields for source filename, page number, content type, and hierarchical context.
-* Integrated the metadata generation logic into the main processing pipeline.
-
-**2025.12.26**
-* Conducted benchmarking of different semantic similarity thresholds for the chunking process.
-* Optimized the base chunk size and overlap parameters for the "BAAI/bge-base-en-v1.5" embedding model.
-* Verified the quality of the generated chunks through manual review of sample outputs.
+* Conducted benchmarking of different semantic similarity thresholds and verified chunk quality through manual review.
 
 ---
 
 ### Week 4: Core RAG - Indexing and Hybrid Retrieval (Dec 29 – Jan 02)
+*(Note: Dec 31 and Jan 01 were Public Holidays)*
 
 **2025.12.29**
 * Integrated the FAISS (Facebook AI Similarity Search) library for high-performance vector storage.
@@ -101,23 +93,13 @@
 
 **2025.12.30**
 * Implemented a BM25-based retriever to provide keyword-centric search capabilities.
-* Configured the BM25 algorithm to handle the specific vocabulary used in environmental legislation.
-* Tested the keyword retriever's effectiveness in finding specific acts and regulatory sections.
-
-**2025.12.31**
-* Developed the `EnsembleRetriever` to combine vector search and BM25 results.
-* Implemented a weighted ranking system to balance semantic relevance and keyword matches.
-* Conducted initial tests on the hybrid retrieval engine using a set of common policy questions.
-
-**2026.01.01**
-* Designed the unified `RAGPipeline` class to manage the entire flow from query to retrieval.
-* Integrated the indexing, storage, and retrieval components into a cohesive API.
-* Added logging and error-handling mechanisms to the pipeline for better observability.
+* Developed the `EnsembleRetriever` to combine vector search and BM25 results using a weighted ranking system.
+* Conducted initial tests on the hybrid retrieval engine using a set of common policy questions to balance relevance.
 
 **2026.01.02**
+* Designed the unified `RAGPipeline` class to manage the entire flow from query to retrieval.
 * Evaluated the performance of hybrid retrieval against pure vector and pure keyword search.
-* Optimized the ensemble weights (0.85 for FAISS, 0.15 for BM25) based on retrieval precision.
-* Refined the top-k selection logic to ensure a balanced set of context chunks.
+* Added logging and error-handling mechanisms to the pipeline for better observability and optimized ensemble weights.
 
 ---
 
@@ -151,6 +133,7 @@
 ---
 
 ### Week 6: LLM Integration and Agent Logic (Jan 12 – Jan 16)
+*(Note: Jan 15 was a Public Holiday)*
 
 **2026.01.12**
 * Evaluated the DeepSeek V3.1 model for its reasoning capabilities and support for long contexts.
@@ -167,15 +150,10 @@
 * Defined the `retrieve_documents` tool to allow the agent to fetch context when needed.
 * Implemented logic to handle multi-step reasoning where the agent may perform multiple retrievals.
 
-**2026.01.15**
-* Created the `token_manager.py` module to handle automatic rotation of Hugging Face API tokens.
-* Implemented a round-robin rotation strategy to circumvent rate limits and ensure high availability.
-* Added monitoring for token health and remaining quota.
-
 **2026.01.16**
+* Created the `token_manager.py` module to handle automatic rotation of Hugging Face API tokens to ensure high availability.
 * Conducted extensive prompt engineering to enforce a strict response structure (Hierarchy, Guidance, Citations).
-* Implemented logic to handle cases where the required information is not found in the documents.
-* Verified the agent's ability to cite specific document sections and pages accurately.
+* Verified the agent's ability to cite specific document sections and pages accurately while handling missing information cases.
 
 ---
 
