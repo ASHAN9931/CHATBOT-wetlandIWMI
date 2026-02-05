@@ -10,56 +10,56 @@
 **2025.12.08**
 * Attended the orientation program at the International Water Management Institute (IWMI).
 * Met with the project supervisor to define the objectives of the "Marsh Warden" AI assistant.
-* Discussed the importance of wetland conservation and the need for a policy-aware chatbot.
+* Discussed the critical role of wetlands and the necessity for an AI-driven policy support tool.
 
 **2025.12.09**
-* Conducted extensive research on Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
-* Evaluated different framework options including LangChain and Streamlit for rapid prototyping.
-* Explored existing AI solutions in the environmental conservation domain.
+* Conducted comprehensive research on Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
+* Evaluated development frameworks, comparing LangChain and Streamlit for rapid prototyping.
+* Analyzed existing digital solutions in the environmental and conservation sectors.
 
 **2025.12.10**
-* Finalized the project scope, focusing on a specialized assistant for Sri Lankan wetland policies.
-* Identified the key target users: policymakers, researchers, and conservation officers.
-* Documented the high-level technical requirements for the chatbot's retrieval engine.
+* Finalized the project scope, prioritizing the analysis of Sri Lankan wetland conservation policies.
+* Identified the primary stakeholder groups: policymakers, researchers, and field conservation officers.
+* Defined the high-level technical architecture for the chatbot’s retrieval engine.
 
 **2025.12.11**
-* Evaluated various PDF processing libraries to handle complex government policy documents.
-* Selected PyMuPDF (fitz) due to its superior performance in layout analysis and text extraction.
-* Researched techniques for handling non-standard characters and multi-column layouts in PDFs.
+* Evaluated PDF processing libraries for handling complex, multi-column government documents.
+* Selected PyMuPDF (fitz) due to its efficient layout analysis and robust text extraction capabilities.
+* Studied techniques for extracting text from legacy PDF formats and handling non-standard encodings.
 
 **2025.12.12**
 * Initialized the development environment and configured the Python virtual environment.
-* Set up the project repository on GitHub with an appropriate directory structure.
-* Established version control workflows and initial project documentation.
+* Established the project repository on GitHub with a structured directory for source code and documentation.
+* Configured initial project settings and version control workflows.
 
 ---
 
 ### Week 2: Data Acquisition and PDF Extraction (Dec 15 – Dec 19)
 
 **2025.12.15**
-* Commenced the implementation of the `PDFExtractor` class to automate document ingestion.
-* Developed the core logic for reading PDF files and iterating through pages efficiently.
-* Integrated basic text cleaning routines to remove unnecessary whitespace and artifacts.
+* Commenced implementation of the `PDFExtractor` class to automate document processing.
+* Developed core logic for reading PDF files and efficiently iterating through page content.
+* Integrated text cleaning routines to eliminate unnecessary whitespace and formatting artifacts.
 
 **2025.12.16**
-* Implemented layout-aware extraction to identify and exclude headers, footers, and page numbers.
-* Refined the margin detection algorithm to prevent noise from interfering with the core content.
-* Enhanced the extractor to preserve the reading order of text blocks in multi-column documents.
+* Implemented layout-aware extraction to filter out headers, footers, and page numbers automatically.
+* Refined margin detection algorithms to ensure only the core policy content is extracted.
+* Enhanced the extractor to maintain the logical reading order in multi-column document layouts.
 
 **2025.12.17**
-* Developed specialized logic for table extraction using the `page.find_tables()` method in PyMuPDF.
-* Implemented a conversion routine to transform extracted tables into Markdown and Pandas DataFrames.
-* Tested table extraction on complex regulatory schedules and environmental data tables.
+* Developed specialized logic for table extraction using the PyMuPDF `find_tables()` method.
+* Implemented routines to convert extracted tables into structured Markdown and Pandas DataFrames.
+* Tested the extraction performance on complex regulatory schedules and data tables.
 
 **2025.12.18**
-* Enhanced the content categorization logic to distinguish between headings, paragraphs, and tables.
-* Implemented font size analysis to automatically detect hierarchical headings within the text.
-* Added support for merging fragmented text blocks that belong to the same logical paragraph.
+* Improved content categorization to distinguish between headings, paragraphs, and tables.
+* Implemented font size analysis to detect document hierarchy and heading levels automatically.
+* Added logic to merge fragmented text blocks into cohesive logical paragraphs.
 
 **2025.12.19**
-* Conducted comprehensive testing of the extraction pipeline on a diverse set of wetland policy documents.
-* Resolved issues related to character encoding and special symbols common in legal texts.
-* Optimized the extraction speed by implementing batch processing for large document sets.
+* Performed end-to-end testing of the extraction pipeline on various wetland policy documents.
+* Resolved character encoding issues and handled special symbols common in legal texts.
+* Optimized extraction performance by implementing batch processing for large document sets.
 
 ---
 
@@ -67,19 +67,19 @@
 *(Note: Dec 25 and Dec 26 were Public Holidays)*
 
 **2025.12.22**
-* Researched advanced chunking strategies to maintain context in long legal and policy documents.
-* Studied the impact of chunk overlap on retrieval accuracy and context window utilization.
-* Defined a robust metadata schema for each document chunk to ensure accurate source attribution, including page numbers and content types.
+* Researched advanced chunking strategies to preserve context in long legal and policy documents.
+* Studied the impact of chunk overlap on retrieval accuracy and context window efficiency.
+* Defined a robust metadata schema to track source filenames, page numbers, and content types for each chunk.
 
 **2025.12.23**
-* Implemented the `SemanticChunker` class using SentenceTransformers for intelligent text splitting.
-* Developed logic to merge adjacent text blocks based on their embedding similarity.
-* Configured the chunker to respect logical boundaries such as headings and table endings.
+* Implemented the `SemanticChunker` class using SentenceTransformers for intelligent document splitting.
+* Developed merging logic based on embedding similarity to keep semantically related text together.
+* Configured the chunker to respect logical document boundaries, such as headings and table ends.
 
 **2025.12.24**
-* Refined the text normalization pipeline to handle inconsistencies in punctuation and formatting.
-* Implemented a cleaning layer to remove OCR errors and non-printable characters.
-* Conducted benchmarking of different semantic similarity thresholds and verified chunk quality through manual review.
+* Refined the text normalization pipeline to resolve inconsistencies in punctuation and formatting.
+* Implemented a cleaning layer to remove OCR-related errors and non-printable characters.
+* Benchmarked semantic similarity thresholds and verified chunk quality through manual verification.
 
 ---
 
@@ -88,47 +88,47 @@
 
 **2025.12.29**
 * Integrated the FAISS (Facebook AI Similarity Search) library for high-performance vector storage.
-* Developed the indexing pipeline to convert document chunks into embeddings and store them in FAISS.
-* Implemented persistence logic to save and load the vector index from disk.
+* Developed an indexing pipeline to transform document chunks into embeddings and store them in FAISS.
+* Implemented persistence mechanisms to save and load the vector index from disk storage.
 
 **2025.12.30**
-* Implemented a BM25-based retriever to provide keyword-centric search capabilities.
-* Developed the `EnsembleRetriever` to combine vector search and BM25 results using a weighted ranking system.
-* Conducted initial tests on the hybrid retrieval engine using a set of common policy questions to balance relevance.
+* Implemented a BM25-based retriever to provide robust keyword-centric search capabilities.
+* Developed an `EnsembleRetriever` to combine vector search and BM25 results using a weighted system.
+* Conducted initial retrieval tests to balance semantic relevance and keyword matching precision.
 
 **2026.01.02**
-* Designed the unified `RAGPipeline` class to manage the entire flow from query to retrieval.
-* Evaluated the performance of hybrid retrieval against pure vector and pure keyword search.
-* Added logging and error-handling mechanisms to the pipeline for better observability and optimized ensemble weights.
+* Designed the unified `RAGPipeline` class to manage the complete flow from query to retrieval.
+* Evaluated the performance of the hybrid retrieval system against pure vector and keyword search models.
+* Integrated comprehensive logging and error-handling into the pipeline for improved system observability.
 
 ---
 
 ### Week 5: Advanced Retrieval and Relevance Reranking (Jan 05 – Jan 09)
 
 **2026.01.05**
-* Researched reranking models to improve the precision of the retrieval results.
-* Evaluated various CrossEncoder models and their computational trade-offs for a prototype.
-* Selected the `ms-marco-MiniLM-L-6-v2` model for its balance of speed and accuracy.
+* Researched reranking models to enhance the precision of the retrieved document sets.
+* Evaluated CrossEncoder models, focusing on the trade-off between computational cost and accuracy.
+* Selected the `ms-marco-MiniLM-L-6-v2` model for the reranking stage of the prototype.
 
 **2026.01.06**
-* Implemented the `RelevanceChecker` class to perform secondary scoring of retrieved documents.
-* Integrated the CrossEncoder model into the retrieval pipeline to re-rank the initial results.
-* Developed logic to filter out chunks that fall below a specific relevance threshold.
+* Implemented the `RelevanceChecker` class to perform secondary scoring of retrieved chunks.
+* Integrated the CrossEncoder into the pipeline to re-rank the initial search results dynamically.
+* Developed filtering logic to exclude chunks that fall below a defined relevance threshold.
 
 **2026.01.07**
-* Enhanced the `RelevanceChecker` with a min/max normalization routine for scores.
-* Implemented a fallback mechanism to use cosine similarity if the CrossEncoder fails.
-* Optimized the reranking process by implementing batch scoring for retrieved chunks.
+* Enhanced the `RelevanceChecker` with a min/max normalization routine for consistent scoring.
+* Implemented a fallback mechanism to cosine similarity to ensure reliability if the CrossEncoder fails.
+* Optimized the reranking process by implementing batch scoring for multiple chunks.
 
 **2026.01.08**
-* Developed a contextual compression mechanism to prune irrelevant sentences within a chunk.
-* Implemented a sentence-level similarity check to keep only the most relevant parts of the text.
-* Reduced the total token count of the context without losing critical information.
+* Developed a contextual compression mechanism to prune irrelevant sentences within a retrieved chunk.
+* Implemented sentence-level similarity checks to retain only the most relevant content for the LLM.
+* Successfully reduced the total token count of the context without sacrificing critical information.
 
 **2026.01.09**
-* Conducted end-to-end testing of the advanced retrieval pipeline with complex queries.
-* Verified that the reranker successfully prioritized the most relevant legal clauses.
-* Fine-tuned the threshold parameters to achieve the optimal balance between recall and precision.
+* Conducted extensive end-to-end testing of the advanced retrieval pipeline with complex policy queries.
+* Verified that the reranker correctly prioritizes the most relevant legal and regulatory clauses.
+* Fine-tuned threshold parameters to achieve an optimal balance between retrieval recall and precision.
 
 ---
 
@@ -136,98 +136,94 @@
 *(Note: Jan 15 was a Public Holiday)*
 
 **2026.01.12**
-* Evaluated the DeepSeek V3.1 model for its reasoning capabilities and support for long contexts.
-* Researched the Hugging Face Inference API for cost-effective model deployment.
-* Defined the system prompt to guide the LLM in providing professional and citation-backed answers.
+* Evaluated the DeepSeek V3.1 model for its superior reasoning capabilities and long context support.
+* Researched the Hugging Face Inference API for reliable and cost-effective model hosting.
+* Authored the system prompt to enforce a professional tone and mandate citation-backed responses.
 
 **2026.01.13**
-* Implemented the LLM integration layer using the OpenAI-compatible API on Hugging Face.
-* Developed robust error-handling and retry logic for API requests.
-* Configured the model parameters (temperature, max tokens) for consistent policy analysis.
+* Implemented the LLM integration layer using the OpenAI-compatible API on the Hugging Face platform.
+* Developed robust error-handling, timeout management, and retry logic for API requests.
+* Configured model hyperparameters, such as temperature and max tokens, for stable and predictable output.
 
 **2026.01.14**
-* Developed the agentic loop with tool-calling capabilities using the DeepSeek model.
-* Defined the `retrieve_documents` tool to allow the agent to fetch context when needed.
-* Implemented logic to handle multi-step reasoning where the agent may perform multiple retrievals.
+* Developed the agentic loop with tool-calling capabilities to enable dynamic context retrieval.
+* Defined the `retrieve_documents` tool, allowing the agent to fetch relevant policy data on demand.
+* Implemented multi-step reasoning logic to handle complex queries requiring multiple retrieval steps.
 
 **2026.01.16**
-* Created the `token_manager.py` module to handle automatic rotation of Hugging Face API tokens to ensure high availability.
-* Conducted extensive prompt engineering to enforce a strict response structure (Hierarchy, Guidance, Citations).
-* Verified the agent's ability to cite specific document sections and pages accurately while handling missing information cases.
+* Created the `token_manager.py` module to automate Hugging Face API token rotation for high availability.
+* Performed intensive prompt engineering to ensure a strict response structure (Hierarchy, Guidance, Citations).
+* Verified the agent’s ability to provide precise citations and handle scenarios where information is unavailable.
 
 ---
 
 ### Week 7: Frontend Development - Part 1 (Jan 19 – Jan 23)
 
 **2026.01.19**
-* Designed the layout of the Streamlit application, focusing on a dashboard-like experience.
-* Established the color palette (Teal and Cyan) and typography for the "Marsh Warden" brand.
-* Created the sidebar structure for model selection, session info, and chat management.
+* Designed the layout of the Streamlit application, emphasizing a clean and professional dashboard UX.
+* Defined the "Marsh Warden" visual identity, including the primary teal and cyan color palette.
+* Developed the sidebar structure for model selection, session metrics, and chat management tools.
 
 **2026.01.20**
-* Implemented extensive custom CSS to enhance the default Streamlit UI.
-* Developed a responsive header section with a custom image slideshow.
-* Styled the chat message bubbles to distinguish between user and assistant responses clearly.
+* Implemented custom CSS overrides to enhance the aesthetics and responsiveness of the Streamlit UI.
+* Developed a dynamic header section featuring a custom image slideshow and branding.
+* Styled chat message bubbles to provide a clear visual distinction between user and assistant roles.
 
 **2026.01.21**
-* Integrated Google OAuth authentication to ensure secure access to the chatbot.
-* Implemented user profile cards in the sidebar to display logged-in user information.
-* Developed a guest mode accessible via specific URL parameters for easy demonstration.
+* Integrated Google OAuth 2.0 to provide secure and personalized access to the application.
+* Developed user profile cards for the sidebar to display authentication details and user initials.
+* Implemented a guest access mode via URL parameters to facilitate quick demonstrations.
 
 **2026.01.22**
-* Implemented session state management to preserve chat history during the session.
-* Developed logic to automatically save and load chat history from JSON files.
-* Added a theme toggle feature to allow users to switch between light and dark modes.
+* Implemented advanced session state management to ensure chat persistence during user interactions.
+* Developed automated logic to save and load conversation histories from JSON-based storage.
+* Added a theme toggle feature, allowing users to switch between light and dark visual modes seamlessly.
 
 **2026.01.23**
-* Built the core chat interface components and integrated the agentic RAG pipeline.
-* Implemented a "View Sources" expander to display the exact document chunks used for each answer.
-* Added a "New Chat" and "Clear History" functionality to the management panel.
+* Built the core chat interface components and linked them to the agentic RAG backend.
+* Implemented a "View Sources" expander to show the exact document chunks and metadata for each response.
+* Added functionality for starting new conversations and clearing history through the management panel.
 
 ---
 
 ### Week 8: Frontend Development - Part 2 (Jan 26 – Jan 30)
 
 **2026.01.26**
-* Set up a dedicated React development environment for building custom Streamlit components.
-* Initialized the `Chat_input_widget` project using a TypeScript and Tailwind CSS stack.
-* Configured the build pipeline to generate artifacts compatible with the Streamlit frontend.
+* Configured a React development environment to build custom, high-performance Streamlit components.
+* Initialized the `Chat_input_widget` project utilizing TypeScript and the Tailwind CSS framework.
+* Set up the build pipeline to generate Streamlit-compatible frontend artifacts.
 
 **2026.01.27**
-* Developed the custom `chat_input_widget` with a focus on modern UX and accessibility.
-* Implemented an audio recording feature using the MediaRecorder API.
-* Added support for dynamic suggestions that appear above the input field.
+* Developed the custom `chat_input_widget` with a focus on modern UX and input accessibility.
+* Implemented an integrated audio recording feature using the browser's MediaRecorder API.
+* Added support for dynamic query suggestions that appear contextually above the input field.
 
 **2026.01.28**
-* Integrated the custom React widget into the main Streamlit application.
-* Implemented the communication bridge between the React component and the Python backend.
-* Resolved styling conflicts between the custom widget and the Streamlit global styles.
+* Integrated the custom React widget into the main Streamlit application framework.
+* Established a reliable communication bridge between the React frontend and the Python backend.
+* Resolved complex styling and layout conflicts between the custom widget and Streamlit's default styles.
 
 **2026.01.29**
-* Enhanced the chat history management system with archiving and renaming capabilities.
-* Implemented a persistent storage mechanism for past conversations using a structured directory.
-* Added a feature to restore past conversations with full context and citations.
+* Enhanced the conversation management system with archiving, renaming, and organization features.
+* Implemented a persistent storage directory for categorized past conversations.
+* Added the capability to restore archived conversations with full context, history, and source citations.
 
 **2026.01.30**
-* Integrated the Whisper-large-v3 model for high-accuracy audio transcription.
-* Developed a seamless workflow for processing voice queries from the custom input widget.
-* Added visual feedback and status indicators for the transcription process.
+* Integrated the Whisper-large-v3 model via Hugging Face to provide high-accuracy voice transcription.
+* Developed a seamless backend workflow for processing audio data received from the custom input widget.
+* Added visual status indicators to provide real-time feedback during the transcription and processing phases.
 
 ---
 
-### Week 9: Finalization and Deployment (Feb 02 – Feb 04)
+### Week 9: Finalization and Project Delivery (Feb 02 – Feb 03)
+*(Note: Feb 04 was a Public Holiday)*
 
 **2026.02.02**
-* Implemented a PDF export feature using the FPDF library for conversation logging.
-* Developed logic to clean and format chat content for professional-looking PDF reports.
-* Integrated the download button into the custom chat input widget.
+* Implemented a PDF export feature using the FPDF library to allow users to save conversation logs.
+* Developed formatting logic to ensure exported PDFs are professional, readable, and properly cited.
+* Integrated the export functionality directly into the user interface for easy accessibility.
 
 **2026.02.03**
-* Performed comprehensive system testing and resolved minor UI inconsistencies.
-* Optimized the application's startup time by caching the RAG pipeline and indices.
-* Conducted a final review of the assistant's accuracy against a suite of benchmark questions.
-
-**2026.02.04**
-* Completed the documentation for the "Marsh Warden" prototype, including setup and usage guides.
-* Prepared the final presentation and demonstration for the IWMI research team.
-* Delivered the completed prototype and transitioned the repository for further internal evaluation.
+* Performed comprehensive system-wide testing and addressed final UI/UX inconsistencies.
+* Optimized application startup and response times by implementing intelligent caching for the RAG indices.
+* Finalized the project documentation, including setup guides, and conducted a successful demonstration for the IWMI research team.
