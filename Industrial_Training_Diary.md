@@ -1,11 +1,13 @@
 # Industrial Training Diary: Wetland Chatbot Development (Marsh Warden)
 **Organization:** International Water Management Institute (IWMI)
 **Project:** Marsh Warden - Wetland Information & Conservation Policy Support Assistant
-**Duration:** 2025.12.08 – 2026.02.04
+**Duration:** 2025.12.08 – 2026.02.13
 
 ---
 
-### Week 1: Foundation and Environment Setup (Dec 08 – Dec 12)
+### Phase 1: Prototype Creation (Dec 08 – Feb 03)
+
+#### Week 1: Foundation and Environment Setup (Dec 08 – Dec 12)
 
 **2025.12.08**
 * Attended the orientation program at the International Water Management Institute (IWMI).
@@ -32,9 +34,7 @@
 * Established the project repository on GitHub with a structured directory for source code and documentation.
 * Configured initial project settings and version control workflows.
 
----
-
-### Week 2: Data Acquisition and PDF Extraction (Dec 15 – Dec 19)
+#### Week 2: Data Acquisition and PDF Extraction (Dec 15 – Dec 19)
 
 **2025.12.15**
 * Commenced implementation of the `PDFExtractor` class to automate document processing.
@@ -61,9 +61,7 @@
 * Resolved character encoding issues and handled special symbols common in legal texts.
 * Optimized extraction performance by implementing batch processing for large document sets.
 
----
-
-### Week 3: Core RAG - Processing and Semantic Chunking (Dec 22 – Dec 24)
+#### Week 3: Core RAG - Processing and Semantic Chunking (Dec 22 – Dec 24)
 *(Note: Dec 25 and Dec 26 were Public Holidays)*
 
 **2025.12.22**
@@ -81,15 +79,13 @@
 * Implemented a cleaning layer to remove OCR-related errors and non-printable characters.
 * Benchmarked semantic similarity thresholds and verified chunk quality through manual verification.
 
----
-
-### Week 4: Core RAG - Indexing and Hybrid Retrieval (Dec 29 – Jan 02)
+#### Week 4: Core RAG - Indexing and Hybrid Retrieval (Dec 29 – Jan 02)
 *(Note: Dec 31 and Jan 01 were Public Holidays)*
 
 **2025.12.29**
 * Integrated the FAISS (Facebook AI Similarity Search) library for high-performance vector storage.
 * Developed an indexing pipeline to transform document chunks into embeddings and store them in FAISS.
-* Implemented persistence mechanisms to save and load the vector index from disk storage.
+* Implemented persistence logic to save and load the vector index from disk storage.
 
 **2025.12.30**
 * Implemented a BM25-based retriever to provide robust keyword-centric search capabilities.
@@ -101,9 +97,7 @@
 * Evaluated the performance of the hybrid retrieval system against pure vector and keyword search models.
 * Integrated comprehensive logging and error-handling into the pipeline for improved system observability.
 
----
-
-### Week 5: Advanced Retrieval and Relevance Reranking (Jan 05 – Jan 09)
+#### Week 5: Advanced Retrieval and Relevance Reranking (Jan 05 – Jan 09)
 
 **2026.01.05**
 * Researched reranking models to enhance the precision of the retrieved document sets.
@@ -130,9 +124,7 @@
 * Verified that the reranker correctly prioritizes the most relevant legal and regulatory clauses.
 * Fine-tuned threshold parameters to achieve an optimal balance between retrieval recall and precision.
 
----
-
-### Week 6: LLM Integration and Agent Logic (Jan 12 – Jan 16)
+#### Week 6: LLM Integration and Agent Logic (Jan 12 – Jan 16)
 *(Note: Jan 15 was a Public Holiday)*
 
 **2026.01.12**
@@ -155,9 +147,7 @@
 * Performed intensive prompt engineering to ensure a strict response structure (Hierarchy, Guidance, Citations).
 * Verified the agent’s ability to provide precise citations and handle scenarios where information is unavailable.
 
----
-
-### Week 7: Frontend Development - Part 1 (Jan 19 – Jan 23)
+#### Week 7: Frontend Development - Part 1 (Jan 19 – Jan 23)
 
 **2026.01.19**
 * Designed the layout of the Streamlit application, emphasizing a clean and professional dashboard UX.
@@ -184,9 +174,7 @@
 * Implemented a "View Sources" expander to show the exact document chunks and metadata for each response.
 * Added functionality for starting new conversations and clearing history through the management panel.
 
----
-
-### Week 8: Frontend Development - Part 2 (Jan 26 – Jan 30)
+#### Week 8: Frontend Development - Part 2 (Jan 26 – Jan 30)
 
 **2026.01.26**
 * Configured a React development environment to build custom, high-performance Streamlit components.
@@ -213,10 +201,7 @@
 * Developed a seamless backend workflow for processing audio data received from the custom input widget.
 * Added visual status indicators to provide real-time feedback during the transcription and processing phases.
 
----
-
-### Week 9: Finalization and Project Delivery (Feb 02 – Feb 03)
-*(Note: Feb 04 was a Public Holiday)*
+#### Week 9: Transition to Experimental Phase (Feb 02 – Feb 06)
 
 **2026.02.02**
 * Implemented a PDF export feature using the FPDF library to allow users to save conversation logs.
@@ -226,4 +211,50 @@
 **2026.02.03**
 * Performed comprehensive system-wide testing and addressed final UI/UX inconsistencies.
 * Optimized application startup and response times by implementing intelligent caching for the RAG indices.
-* Finalized the project documentation, including setup guides, and conducted a successful demonstration for the IWMI research team.
+* Prepared the project repository for the experimental phase, ensuring all core modules are well-documented.
+
+---
+
+### Phase 2: Experimental Phase and Code Enhancement (Feb 04 – Feb 13)
+
+**2026.02.04**
+* Commenced the experimental phase by testing the RAG pipeline with alternative LLMs.
+* Evaluated Mistral-7B and Gemma-7B models to compare their performance in policy interpretation against DeepSeek.
+* Analyzed the impact of different model architectures on citation accuracy and reasoning quality.
+
+**2026.02.05**
+* Experimented with the LlamaIndex library as an alternative orchestration framework for the RAG pipeline.
+* Compared LlamaIndex's indexing efficiency and retrieval performance with the existing custom FAISS implementation.
+* Evaluated the "Small-to-Big" retrieval technique provided by LlamaIndex for better context preservation.
+
+**2026.02.06**
+* Explored advanced vector database options, specifically testing Qdrant for its native support of hybrid search.
+* Benchmarked retrieval speed and precision when using Qdrant's sparse and dense vector integration.
+* Documented the trade-offs between managed vector stores and the current local FAISS approach.
+
+#### Week 10: Code Enhancement and Final Evaluations (Feb 09 – Feb 13)
+
+**2026.02.09**
+* Initiated a comprehensive code refactoring process to improve modularity and maintainability.
+* Decoupled the retrieval logic from the main Streamlit application to allow for easier testing of new components.
+* Enhanced the `PDFExtractor` to better handle tables across multiple pages using more robust heuristic checks.
+
+**2026.02.10**
+* Optimized the hybrid retrieval weights using a grid search approach over a set of validation questions.
+* Enhanced the prompt templates with few-shot examples to improve the model's adherence to the strict citation format.
+* Improved the system's handling of multi-turn conversations by implementing better context window management.
+
+**2026.02.11**
+* Experimented with LangGraph to implement more complex agentic workflows, such as self-correction during retrieval.
+* Developed a prototype of a "Self-RAG" loop where the agent evaluates the relevance of retrieved documents before generating an answer.
+* Evaluated the improvement in response quality when using iterative refinement.
+
+**2026.02.12**
+* Performed final performance benchmarks across the optimized system, focusing on end-to-end latency.
+* Conducted a comparative analysis of the experimental results, documenting the most effective LLM and library combinations.
+* Refined the frontend UI to include visual indicators of the retrieval and reranking steps for better transparency.
+
+**2026.02.13**
+* Finalized the comprehensive documentation for both the prototype and the experimental findings.
+* Prepared a final presentation summarizing the project achievements, experimental insights, and recommendations for future work.
+* Delivered the complete code package and transitioned the project for further internal evaluation by the IWMI team.
