@@ -1646,13 +1646,25 @@ def main():
         # Use message count as key to reset widget after each send (prevents duplicate re-sends on rerun)
         widget_key = f"chat_widget_{len(st.session_state.messages)}"
         user_input = None
+
+        # Suggested questions for the WWD event demo
+        demo_suggestions = [
+            "Compare development conditions for different wetland zones in a table.",
+            "What are the six primary objectives of the National Wetland Policy (2006)?",
+            "Explain the four basic wetland zones in the Western Province.",
+            "What is the current water level at Beddagana Wetland Park today?",
+            "Who are the private landowners in the Bolgoda wetland area?"
+        ]
+
         try:
             user_input = chat_input_widget(
                 key=widget_key,
                 pdf_data=pdf_data_b64,
                 pdf_filename=f"Marsh Warden_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
                 dark_mode=st.session_state.dark_mode,
-                show_suggestions=(False))
+                suggestions=demo_suggestions if len(st.session_state.messages) == 0 else None,
+                show_suggestions=True if len(st.session_state.messages) == 0 else False
+            )
         except Exception as e:
             # Log minimal error info and present fallback so the app remains functional
             import traceback, sys
